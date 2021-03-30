@@ -1,6 +1,6 @@
 def clue_extraction(passage, answer, question):
   max_clue_score = 0
-  clue = ""
+  clue_chunk = ""
   candidate_chunks = [word.text for word in get_chunks(passage)]
   passage_tokens = [word for word in passage.split() if not word.lower() in all_stopwords]
   question_tokens = [word for word in question.split() if not word.lower() in all_stopwords]
@@ -27,10 +27,10 @@ def clue_extraction(passage, answer, question):
     clue_score = num_chunk_question_token_overlap + num_chunk_question_stem_overlap + num_chunk_question_soft_copied_tokens + chunk_in_question
 
     if (clue_score > max_clue_score):
-      clue = chunk
+      clue_chunk = chunk
       max_clue_score = clue_score
   
-  return clue
+  return clue_chunk
 
 
 def get_chunks(text):
